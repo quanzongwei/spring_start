@@ -14,6 +14,7 @@
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"
        default-autowire="byName" default-lazy-init="true">
+    <!--不建议使用defauls-autowire,lazy-init设置为true减少调试时间-->
     <!--扫描包,包含了context;annotation-config注解,注意这里use-default-filter要设置成false,否则把有实物的也重新扫描成没有事务的了-->
     <context:component-scan base-package="com.nd" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
