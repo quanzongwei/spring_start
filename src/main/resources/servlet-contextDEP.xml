@@ -1,0 +1,38 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:context="http://www.springframework.org/schema/context"-->
+       <!--xmlns:mvc="http://www.springframework.org/schema/mvc"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+        <!--http://www.springframework.org/schema/beans/spring-beans.xsd-->
+
+
+
+
+        <!--http://www.springframework.org/schema/context-->
+        <!--http://www.springframework.org/schema/context/spring-context-3.1.xsd-->
+        <!--http://www.springframework.org/schema/mvc-->
+        <!--http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd"-->
+       <!--default-autowire="byName" default-lazy-init="true">-->
+    <!--&lt;!&ndash;不建议使用defauls-autowire,lazy-init设置为true减少调试时间&ndash;&gt;-->
+    <!--&lt;!&ndash;扫描包,包含了context;annotation-config注解,注意这里use-default-filter要设置成false,否则把有实物的也重新扫描成没有事务的了&ndash;&gt;-->
+    <!--<context:component-scan base-package="com.nd" use-default-filters="false">-->
+        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--</context:component-scan>-->
+
+
+    <!--&lt;!&ndash; spring默认的注解映射的支持，自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter &ndash;&gt;-->
+    <!--<mvc:annotation-driven/>-->
+
+    <!--&lt;!&ndash;todo 下面是todo的&ndash;&gt;-->
+
+    <!--&lt;!&ndash; 视图解释类 &ndash;&gt;-->
+    <!--&lt;!&ndash;<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="prefix" value="/WEB-INF/views/"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="suffix" value=".jsp"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;&lt;!&ndash; 对静态资源文件的访问&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<mvc:resources mapping="/assets/**" location="/assets"/>&ndash;&gt;-->
+<!--</beans>-->

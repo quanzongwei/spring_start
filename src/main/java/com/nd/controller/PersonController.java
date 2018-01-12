@@ -1,13 +1,13 @@
 package com.nd.controller;
 
+import com.nd.dao.PersonDao;
+import com.nd.service.PersonService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.nd.dao.PersonDao;
-import com.nd.service.PersonService;
 
 /**
  * Created by quanzongwei(207127) on 2017/6/27 0027.
@@ -29,13 +29,15 @@ public class PersonController {
     @Transactional
     @RequestMapping(value = "/say_hi", method = RequestMethod.GET)
     public void sayhi() {
+        System.out.println("hello");
         personService.sayHi();
         // personDao.createPersonTable();
         personDao.add();
         if (true) {
-            throw new RuntimeException();
+//            throw new RuntimeException();
         }
         personDao.add();
+        System.out.println();
         // personService.fun();
     }
 }

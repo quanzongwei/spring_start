@@ -1,0 +1,68 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<beans xmlns="http://www.springframework.org/schema/beans"-->
+       <!--xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+       <!--xmlns:context="http://www.springframework.org/schema/context"-->
+       <!--xmlns:aop="http://www.springframework.org/schema/aop"-->
+       <!--xmlns:tx="http://www.springframework.org/schema/tx"-->
+       <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+        <!--http://www.springframework.org/schema/beans/spring-beans.xsd-->
+        <!--http://www.springframework.org/schema/aophdp-->
+        <!--http://www.springframework.org/schema/aop/spring-aop-3.1.xsd-->
+        <!--http://www.springframework.org/schema/cache-->
+        <!--http://www.springframework.org/schema/cache/spring-cache.xsd-->
+        <!--http://www.springframework.org/schema/context-->
+        <!--http://www.springframework.org/schema/context/spring-context-3.1.xsd-->
+        <!--http://www.springframework.org/schema/mvc-->
+        <!--http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd-->
+        <!--http://www.springframework.org/schema/util-->
+        <!--http://www.springframework.org/schema/util/spring-util-3.1.xsd-->
+        <!--http://www.springframework.org/schema/tx-->
+        <!--http://www.springframework.org/schema/tx/spring-tx.xsd-->
+        <!--http://www.springframework.org/schema/hadoop-->
+        <!--http://www.springframework.org/schema/hadoop/spring-hadoop.xsd"-->
+       <!--default-autowire="byName" default-lazy-init="true">-->
+    <!--&lt;!&ndash;扫描包,包含了context;annotation-config注解,use-default-filter默认值是true,&ndash;&gt;-->
+    <!--<context:component-scan base-package="com.nd" use-default-filters="true">-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    <!--</context:component-scan>-->
+    <!--&lt;!&ndash;配置数据库连接池,容器关闭的时候,调用close方法&ndash;&gt;-->
+    <!--<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">-->
+        <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+        <!--<property name="url" value="jdbc:mysql://localhost/spring"/>-->
+        <!--<property name="username" value="root"/>-->
+        <!--<property name="password" value="root"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;注入jsbcTemplate&ndash;&gt;-->
+    <!--<bean id="jdbcTemplate"-->
+          <!--class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <!--&lt;!&ndash;事务管理器&ndash;&gt;-->
+    <!--<bean id="transactionManager"-->
+          <!--class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+        <!--<property name="dataSource" ref="dataSource">-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--&lt;!&ndash;注解事务支持,true 表示使用基于类的代理形式,默认是基于jdk接口的&ndash;&gt;-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true" ></tx:annotation-driven>-->
+
+    <!--&lt;!&ndash;事务切面下面是 todo 的&ndash;&gt;-->
+    <!--&lt;!&ndash;<aop:config>&ndash;&gt;-->
+        <!--&lt;!&ndash;<aop:pointcut id="bussinessService"&ndash;&gt;-->
+                      <!--&lt;!&ndash;expression="execution(public * com.critc.service.*.*(..))" />&ndash;&gt;-->
+        <!--&lt;!&ndash;<aop:advisor pointcut-ref="bussinessService" advice-ref="txAdvice" />&ndash;&gt;-->
+    <!--&lt;!&ndash;</aop:config>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<tx:advice id="txAdvice" transaction-manager="transactionManager">&ndash;&gt;-->
+        <!--&lt;!&ndash;<tx:attributes>&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="add*" propagation="REQUIRED" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="update*" propagation="REQUIRED" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="delete*" propagation="REQUIRED" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="save*" propagation="REQUIRED" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="import*" propagation="REQUIRED" />&ndash;&gt;-->
+            <!--&lt;!&ndash;<tx:method name="*" read-only="true" />&ndash;&gt;-->
+        <!--&lt;!&ndash;</tx:attributes>&ndash;&gt;-->
+    <!--&lt;!&ndash;</tx:advice>&ndash;&gt;-->
+<!--</beans>-->
