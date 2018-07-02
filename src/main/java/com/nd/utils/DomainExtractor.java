@@ -74,6 +74,9 @@ public abstract class DomainExtractor<T> implements ExcelExtractor<T> {
         if (pd.getPropertyType() == String.class) {
             return cell.getStringCellValue();
         }
+        if (pd.getPropertyType() == Long.class) {
+            return Long.valueOf(Double.valueOf(cell.getNumericCellValue()).longValue());
+        }
         throw new RuntimeException("数据类型不支持");
     }
 }

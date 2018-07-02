@@ -3,16 +3,9 @@
  */
 package com.nd.utils;
 
-import java.beans.IntrospectionException;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -22,7 +15,15 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.nd.domain.Student;
+import java.beans.IntrospectionException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 有效数据是从第0个sheet第0行第0列开始的
@@ -81,7 +82,6 @@ public class ExcelHelper<T> {
         System.out.println(path);
         InputStream is = new FileInputStream(path);
         XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is);
-        T student = null;
         List<T> list = new ArrayList<T>();
         // Read the Sheet
         for (int numSheet = 0; numSheet < xssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -122,7 +122,6 @@ public class ExcelHelper<T> {
         System.out.println(path);
         InputStream is = new FileInputStream(path);
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook(is);
-        Student student = null;
         List<T> list = new ArrayList<T>();
         // Read the Sheet
         for (int numSheet = 0; numSheet < hssfWorkbook.getNumberOfSheets(); numSheet++) {
@@ -150,6 +149,28 @@ public class ExcelHelper<T> {
             }
         }
         return list;
+    }
+
+    /**
+     * 写表依赖于父类,这个待优化
+     * created by quanzongwei
+     */
+    public <T extends BaseDomain> void  writeXls(String path,List<T> list,Class<T> clazz)
+            throws IOException, InvocationTargetException, IntrospectionException, InstantiationException,
+            IllegalAccessException {
+        System.out.println(path);
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+        //
+        HSSFSheet hssfSheet = hssfWorkbook.createSheet("hello");
+        for (int rowNum = 0; rowNum < list.size(); rowNum++) {
+            HSSFRow row = hssfSheet.createRow(rowNum);
+            HSSFCell cell = row.createCell(0);
+            T domain = list.get(rowNum);
+            cell.setCellValue(String.valueOf(domain.get$0()));
+            HSSFCellStyle cellStyle = cell.getCellStyle();
+        }
+        OutputStream out = new FileOutputStream(path);
+        hssfWorkbook.write(out);
     }
 
     @SuppressWarnings("static-access")
