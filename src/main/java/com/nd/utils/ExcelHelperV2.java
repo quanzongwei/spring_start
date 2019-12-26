@@ -15,11 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.beans.IntrospectionException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +23,11 @@ import java.util.List;
 /**
  * 有效数据是从第0个sheet第0行第0列开始的
  */
-public class ExcelHelper<T> {
+public class ExcelHelperV2<T> {
 
-    ExcelExtractor<T> extractor;
+    DomainExtractorV2<T> extractor;
 
-    public ExcelHelper(ExcelExtractor<T> extractor) {
+    public ExcelHelperV2(DomainExtractorV2<T> extractor) {
         this.extractor = extractor;
     }
 
@@ -89,18 +85,9 @@ public class ExcelHelper<T> {
                 continue;
             }
             // Read the Row 从第0行开始
-            for (int rowNum = 0; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
+            for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
                 XSSFRow xssfRow = xssfSheet.getRow(rowNum);
                 if (xssfRow != null) {
-                    //                    student = new Student();
-                    //                    XSSFCell no = xssfRow.getCell(0);
-                    //                    XSSFCell name = xssfRow.getCell(1);
-                    //                    XSSFCell age = xssfRow.getCell(2);
-                    //                    XSSFCell score = xssfRow.getCell(3);
-                    //                    student.setNo(getValue(no));
-                    //                    student.setName(getValue(name));
-                    //                    student.setAge(getValue(age));
-                    //                    student.setScore(Float.valueOf(getValue(score)));
                     T domain = this.extractor.extractor(xssfRow);
                     list.add(domain);
                 }
@@ -132,18 +119,7 @@ public class ExcelHelper<T> {
             for (int rowNum = 1; rowNum <= hssfSheet.getLastRowNum(); rowNum++) {
                 HSSFRow hssfRow = hssfSheet.getRow(rowNum);
                 if (hssfRow != null) {// 这个不为空写的好
-//                    student = new Student();
-//                    HSSFCell no = hssfRow.getCell(0);
-//                    HSSFCell name = hssfRow.getCell(1);
-//                    HSSFCell age = hssfRow.getCell(2);
-//                    HSSFCell score = hssfRow.getCell(3);
-//                    student.setNo(getValue(no));
-//                    student.setName(getValue(name));
-//                    student.setAge(getValue(age));
-//                    student.setScore(Float.valueOf(getValue(score)));
-//                    list.add(student);
                     list.add((T) this.extractor.extractor(hssfRow));
-
                 }
             }
         }
@@ -179,46 +155,5 @@ public class ExcelHelper<T> {
         }
         OutputStream out = new FileOutputStream(path);
         hssfWorkbook.write(out);
-    }
-
-    @SuppressWarnings("static-access")
-    private String getValue(XSSFCell xssfRow) {
-        if (xssfRow.getCellType() == xssfRow.CELL_TYPE_BOOLEAN) {
-            return String.valueOf(xssfRow.getBooleanCellValue());
-        }
-        else if (xssfRow.getCellType() == xssfRow.CELL_TYPE_NUMERIC) {
-            return String.valueOf(xssfRow.getNumericCellValue());
-        }
-        else {
-            return String.valueOf(xssfRow.getStringCellValue());
-        }
-    }
-
-    private static String getValue(HSSFCell hssfCell) {
-        if (hssfCell.getCellType() == hssfCell.CELL_TYPE_BOOLEAN) {
-            return String.valueOf(hssfCell.getBooleanCellValue());
-        }
-        else if (hssfCell.getCellType() == hssfCell.CELL_TYPE_NUMERIC) {
-            return String.valueOf(hssfCell.getNumericCellValue());
-        }
-        else {
-            return String.valueOf(hssfCell.getStringCellValue());
-        }
-    }
-    public static String getValue(Cell cell) {
-        if (cell.getCellType() == cell.CELL_TYPE_BOOLEAN) {
-            return String.valueOf(cell.getBooleanCellValue());
-        }
-        else if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
-            return String.valueOf(cell.getNumericCellValue());
-        }
-        else {
-            return String.valueOf(cell.getStringCellValue());
-        }
-    }
-
-    public static <T> void writeExcel(String path,List<T> list,Class<T> clazz) {
-
-
     }
 }

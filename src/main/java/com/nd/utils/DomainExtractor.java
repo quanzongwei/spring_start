@@ -68,14 +68,29 @@ public abstract class DomainExtractor<T> implements ExcelExtractor<T> {
      * 目前数据映射支持String和Integer类型
      */
     public Object getValueByPropertyValueAndCell(PropertyDescriptor pd, Cell cell) {
-        if (pd.getPropertyType() == Integer.class || pd.getPropertyType() == int.class) {
-            return (int) cell.getNumericCellValue();
-        }
-        if (pd.getPropertyType() == String.class) {
-            return cell.getStringCellValue();
-        }
-        if (pd.getPropertyType() == Long.class) {
-            return Long.valueOf(Double.valueOf(cell.getNumericCellValue()).longValue());
+        try {
+            if (pd.getPropertyType() == Integer.class || pd.getPropertyType() == int.class) {
+//                return (int) cell.getNumericCellValue();
+                String s = cell.toString();
+                return Integer.valueOf(Double.valueOf(s).intValue());
+
+            }
+            if (pd.getPropertyType() == String.class) {
+//                return cell.getStringCellValue();
+                if (cell == null) {
+                    return "";
+                }
+                String s = cell.toString();
+                return s;
+            }
+            if (pd.getPropertyType() == Long.class) {
+                String s = cell.toString();
+                return Long.valueOf(Double.valueOf(s).longValue());
+            }
+        } catch (Exception e) {
+            System.out.println();
+            throw new RuntimeException("excel字段类型出错,ROW:" + cell.getAddress().getRow() + ", COL:"
+                    + cell.getAddress().getColumn(), e);
         }
         throw new RuntimeException("数据类型不支持");
     }

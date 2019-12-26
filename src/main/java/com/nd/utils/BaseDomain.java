@@ -5,4 +5,7 @@ package com.nd.utils;
  */
 public abstract class BaseDomain {
     public  abstract Object get$0();
+    public  abstract Object get$1();
+    public  abstract Object get$2();
+
 }
